@@ -19,11 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Override point for customization after application launch.
         let splitViewController = self.window!.rootViewController as UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
-        navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+        //navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         splitViewController.delegate = self
-        
-        // Parse
-        setupParse()
         
         return true
     }
@@ -53,42 +50,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     // MARK: - Split view
 
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController!, ontoPrimaryViewController primaryViewController:UIViewController!) -> Bool {
-//        if let secondaryAsNavController = secondaryViewController as? UINavigationController {
-//            if let topAsDetailController = secondaryAsNavController.topViewController as? PushViewController {
+        if let secondaryAsNavController = secondaryViewController as? UINavigationController {
+            if let topAsDetailController = secondaryAsNavController.topViewController as? PushViewController {
+                println("foo")
 //                if topAsDetailController.detailItem == nil {
 //                    // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
 //                    return true
 //                }
-//            }
-//        }
-        return false
+            }
+        }
+        return true
     }
     
-    // MARK: - Parse setup
-    
-    func setupParse() {
-        var error: NSError?
-        let path: NSString = NSBundle.mainBundle().pathForResource("localConfig", ofType: "json")!
-        if (path.length == 0) {
-            println("file localConfig.json not found")
-            return
-        }
-        
-        let jsonData: NSData = NSData.dataWithContentsOfFile(path, options:.DataReadingMappedIfSafe , error: &error)
-        if (error != nil) {
-            print(error)
-            error = nil
-        }
-        if (jsonData.length > 0) {
-            let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as NSDictionary
-            let appID: String = jsonDict["parse.app.id"] as String
-            let clientKey: String = jsonDict["parse.client.key"] as String
-            Parse.setApplicationId(appID, clientKey: clientKey)
-            println("init Parse")
-        } else {
-            println("no JSON data")
-        }
-    }
-
 }
 

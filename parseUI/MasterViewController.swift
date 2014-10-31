@@ -19,17 +19,17 @@ class MasterViewController: UITableViewController {
             self.clearsSelectionOnViewWillAppear = false
             self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
         }
+        
+        setupParse()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        if let split = self.splitViewController {
-            let controllers = split.viewControllers
-            self.detailViewController = controllers[controllers.count-1].topViewController as? PushViewController
-        }
-        
-        setupParse()
+//        if let split = self.splitViewController {
+//            let controllers = split.viewControllers
+//            self.detailViewController = controllers[controllers.count-1].topViewController as? PushViewController
+//        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,30 +40,49 @@ class MasterViewController: UITableViewController {
     // MARK: - Parse setup
     
     func setupParse() {
-        // TODO: get local config
-        Parse.setApplicationId("", clientKey: "")
+        var error: NSError?
+        let path: NSString = NSBundle.mainBundle().pathForResource("localConfig", ofType: "json")!
+        if (path.length == 0) {
+            println("file localConfig.json not found")
+            return
+        }
+        
+        let jsonData: NSData = NSData.dataWithContentsOfFile(path, options:.DataReadingMappedIfSafe , error: &error)
+        if (error != nil) {
+            print(error)
+            error = nil
+        }
+        if (jsonData.length > 0) {
+            let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as NSDictionary
+            let appID: String = jsonDict["parse.app.id"] as String
+            let clientKey: String = jsonDict["parse.client.key"] as String
+            Parse.setApplicationId(appID, clientKey: clientKey)
+            println("init Parse")
+        } else {
+            println("no JSON data")
+        }
     }
 
     // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
-                switch indexPath.row {
-                case 0:
-                    println("case 0")
-                    break
-                case 1:
-                    println("case 1")
-                    break
-                default:
-                    println("default")
-                }
-                
-                let controller = (segue.destinationViewController as UINavigationController).topViewController as PushViewController
-                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-                controller.navigationItem.leftItemsSupplementBackButton = true
-            }
+        let navController = (segue.destinationViewController as UINavigationController)
+        
+        var vc: UIViewController!
+        if segue.identifier == "showOldPush" {
+            vc = UIViewController() //PushViewController()
+            vc.view.backgroundColor = UIColor.redColor()
+            vc.navigationItem.leftItemsSupplementBackButton = true
+        } else if segue.identifier == "showPush" {
+            vc = UIViewController()
+            vc.view.backgroundColor = UIColor.greenColor()
+            
+        } else {
+            assert(false, "mööp!")
+        }
+        
+        if (vc != nil) {
+            navController.addChildViewController(vc!)
         }
     }
 
