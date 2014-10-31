@@ -14,7 +14,7 @@
 		35393CAA19F10CE4007BE908 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35393CA819F10CE4007BE908 /* LaunchScreen.xib */; };
 		35393CB619F10CE4007BE908 /* parseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35393CB519F10CE4007BE908 /* parseUITests.swift */; };
 		35F1D92F19F1500C00D50671 /* PushViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F1D92E19F1500C00D50671 /* PushViewController.swift */; };
-		35F1D93519F24C2D00D50671 /* localConfig in Resources */ = {isa = PBXBuildFile; fileRef = 35F1D93319F24C2D00D50671 /* localConfig */; };
+		35F1D93519F24C2D00D50671 /* localConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 35F1D93319F24C2D00D50671 /* localConfig.json */; };
 		467A90FADF2C133F95506F94 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9BEB9433A7BC3F0A7BAC015 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -41,7 +41,7 @@
 		35393CB519F10CE4007BE908 /* parseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = parseUITests.swift; sourceTree = "<group>"; };
 		35F1D92E19F1500C00D50671 /* PushViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushViewController.swift; sourceTree = "<group>"; };
 		35F1D93019F162A300D50671 /* parseUI-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "parseUI-Bridging-Header.h"; sourceTree = "<group>"; };
-		35F1D93319F24C2D00D50671 /* localConfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = localConfig; sourceTree = "<group>"; };
+		35F1D93319F24C2D00D50671 /* localConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = localConfig.json; sourceTree = "<group>"; };
 		59A58717B07FDFE1C20C3A14 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B9BEB9433A7BC3F0A7BAC015 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D414B2E89F176547DE4BE8B2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 				35393C9B19F10CE4007BE908 /* Supporting Files */,
 				35F1D92E19F1500C00D50671 /* PushViewController.swift */,
 				35F1D93019F162A300D50671 /* parseUI-Bridging-Header.h */,
-				35F1D93319F24C2D00D50671 /* localConfig */,
+				35F1D93319F24C2D00D50671 /* localConfig.json */,
 			);
 			path = parseUI;
 			sourceTree = "<group>";
@@ -227,7 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35F1D93519F24C2D00D50671 /* localConfig in Resources */,
+				35F1D93519F24C2D00D50671 /* localConfig.json in Resources */,
 				35393CA519F10CE4007BE908 /* Main.storyboard in Resources */,
 				35393CAA19F10CE4007BE908 /* LaunchScreen.xib in Resources */,
 				35393CA719F10CE4007BE908 /* Images.xcassets in Resources */,

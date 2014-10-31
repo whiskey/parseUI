@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -20,6 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
         navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         splitViewController.delegate = self
+        
+        // Parse
+        setupParse()
+        
         return true
     }
 
@@ -57,6 +62,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 //            }
 //        }
         return false
+    }
+    
+    // MARK: - Parse setup
+    
+    func setupParse() {
+        var error: NSError?
+        let path: NSString = NSBundle.mainBundle().pathForResource("localConfig", ofType: "json")!
+        if (path.length == 0) {
+            println("file localConfig.json not found")
+            return
+        }
+        
+        let jsonData: NSData = NSData.dataWithContentsOfFile(path, options:.DataReadingMappedIfSafe , error: &error)
+        if (error != nil) {
+            print(error)
+            error = nil
+        }
+        if (jsonData.length > 0) {
+            let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as NSDictionary
+            let appID: String = jsonDict["parse.app.id"] as String
+            let clientKey: String = jsonDict["parse.client.key"] as String
+            Parse.setApplicationId(appID, clientKey: clientKey)
+            println("init Parse")
+        } else {
+            println("no JSON data")
+        }
     }
 
 }

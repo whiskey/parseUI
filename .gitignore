@@ -25,7 +25,7 @@ DerivedData
 .idea/
 
 # Local configuration
-localConfig
+localConfig.json
 
 # sometimes generated during merge operations with opendiff
 *.orig
